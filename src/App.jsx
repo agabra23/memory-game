@@ -25,14 +25,22 @@ function App() {
 
   const shuffleImages = () => {
     if (allImages.length > 0) {
-      const gridImages = [];
-      for (let i = 0; i < 9; i++) {
-        gridImages.push(
-          allImages[Math.floor(Math.random() * allImages.length)]
-        );
-      }
-      setSelectedImages(gridImages);
+      setSelectedImages(getSelectedImages());
     }
+  };
+
+  const getSelectedImages = () => {
+    const gridImages = [];
+    for (let i = 0; i < 9; i++) {
+      let randomImage = allImages[Math.floor(Math.random() * allImages.length)];
+
+      while (gridImages.some((image) => image.id === randomImage.id)) {
+        randomImage = allImages[Math.floor(Math.random() * allImages.length)];
+      }
+      gridImages.push(randomImage);
+    }
+
+    return gridImages;
   };
 
   useEffect(() => {
