@@ -7,21 +7,42 @@ function App() {
     "https://api.giphy.com/v2/emoji?api_key=jLvjxLBegqMPTsPVnfAGVjxVZVqnkQdU&limit=30&offset=0";
 
   const [imageArray, setImageArray] = useState([]);
+  const [selectedImages, setSelectedImages] = useState([]);
 
   useEffect(() => {
     const fetchEmojis = async () => {
-      const response = await fetch(ENDPOINT, { mode: "cors" });
-      const data = await response.json();
+      try {
+        const response = await fetch(ENDPOINT, { mode: "cors" });
+        const data = await response.json();
+        setImageArray(data.data);
 
-      setImageArray(data.data);
+        // Move the selection of four random images inside this useEffect
+        const fourImages = [];
+        for (let i = 0; i < 4; i++) {
+          fourImages.push(
+            data.data[Math.floor(Math.random() * data.data.length)]
+          );
+        }
+        setSelectedImages(fourImages);
+      } catch (error) {
+        console.error("Error fetching emojis:", error);
+      }
     };
 
     fetchEmojis();
   }, []);
 
-  const getFourImages = () => {
-    
-  }
+  // useEffect(() => {
+  //   const fourImages = [];
+  //   for (let i = 0; i < 4; i++) {
+  //     fourImages.push(imageArray[Math.floor(Math.random() * 31)]);
+  //   }
+  //   setSelectedImages([...fourImages]);
+  // }, [imageArray]);
+
+  useEffect(() => {
+    console.log(selectedImages);
+  }, [selectedImages]);
 
   return (
     <>
@@ -33,7 +54,7 @@ function App() {
         </div>
       </header>
       <main className="card-container">
-        {imageArray.map((image) => (
+        {selectedImages.map((image) => (
           <Card
             key={crypto.randomUUID()}
             url={image.images?.original.url}
