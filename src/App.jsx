@@ -30,12 +30,8 @@ function App() {
         </div>
       </header>
       <main>
-        {imageArray.map((item, index) => (
-          <div key={index}>
-            <button>
-              <img src={item.images?.original.url} alt={item.title} />
-            </button>
-          </div>
+        {imageArray.map((image) => (
+          <Card url={image.images?.original.url} alt={image.title} />
         ))}
       </main>
     </>
