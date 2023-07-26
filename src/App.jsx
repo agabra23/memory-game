@@ -26,7 +26,7 @@ function App() {
   const shuffleImages = () => {
     if (allImages.length > 0) {
       const gridImages = [];
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 9; i++) {
         gridImages.push(
           allImages[Math.floor(Math.random() * allImages.length)]
         );
@@ -48,15 +48,17 @@ function App() {
           <h6>High Score:</h6>
         </div>
       </header>
-      <main className="card-container">
-        {selectedImages.map((image) => (
-          <Card
-            key={crypto.randomUUID()}
-            url={image.images?.original.url}
-            alt={image.title}
-            shuffleImages={shuffleImages}
-          />
-        ))}
+      <main>
+        <div className="card-container">
+          {selectedImages.map((image) => (
+            <Card
+              key={crypto.randomUUID()}
+              url={image.images?.original.url}
+              alt={image.title}
+              shuffleImages={shuffleImages}
+            />
+          ))}
+        </div>
       </main>
     </>
   );

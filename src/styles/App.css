@@ -5,6 +5,19 @@
   font-size: 10px;
 }
 
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+/* #root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+} */
+
 header {
   display: flex;
   justify-content: space-between;
@@ -22,7 +35,33 @@ h6 {
   margin: 1rem;
 }
 
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .card-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  justify-content: center;
+  width: fit-content;
+}
+
+.card-cell-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-btn {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-btn img {
+  object-fit: cover;
 }
