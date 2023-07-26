@@ -9,6 +9,8 @@ function App() {
   const [selectedImages, setSelectedImages] = useState([]);
   const [allImages, setAllImages] = useState([]);
   const [clickedImages, setClickedImages] = useState([]);
+  const [score, setScore] = useState(0);
+  const [highScore, sethighScore] = useState(0);
 
   const fetchEmojis = async () => {
     try {
@@ -66,7 +68,6 @@ function App() {
     if (randomIndex === 8) {
       gridImages.push(getUnclickedImage());
     } else {
-      // put unclicked img at random index
       gridImages.splice(randomIndex, 0, getUnclickedImage());
     }
 
@@ -77,23 +78,51 @@ function App() {
     shuffleImages();
   }, [allImages]);
 
+  const addtoClicked = (imageObject) => {
+    setClickedImages([...clickedImages, imageObject]);
+  };
+
+  const cardClickHandler = (imageObject) => {
+    if (clickedImages.some((image) => image.id === imageObject.id)) {
+      resetGame();
+    } else {
+      addtoClicked(imageObject);
+      setScore(score + 1);
+    }
+
+    shuffleImages();
+  };
+
+  useEffect(() => {
+    if (score > highScore) sethighScore(score);
+  }, [score, highScore]);
+
+  const resetGame = () => {
+    setScore(0);
+    setClickedImages([]);
+  };
+
+  useEffect(() => {
+    console.log("clicked images", clickedImages);
+  }, [clickedImages]);
+
   return (
     <>
       <header>
         <h1>Memory Game</h1>
         <div className="scoreboard-container">
-          <h6>Score:</h6>
-          <h6>High Score:</h6>
+          <h6>Score: {score}</h6>
+          <h6>High Score: {highScore}</h6>
         </div>
       </header>
       <main>
         <div className="card-container">
           {selectedImages.map((image) => (
             <Card
-              key={crypto.randomUUID()}
+              key={image.id}
               url={image.images?.original.url}
               alt={image.title}
-              shuffleImages={shuffleImages}
+              cardClickHandler={() => cardClickHandler(image)}
             />
           ))}
         </div>
