@@ -23,7 +23,7 @@ function App() {
     fetchEmojis();
   }, []);
 
-  useEffect(() => {
+  const shuffleImages = () => {
     if (allImages.length > 0) {
       const gridImages = [];
       for (let i = 0; i < 4; i++) {
@@ -33,6 +33,10 @@ function App() {
       }
       setSelectedImages(gridImages);
     }
+  };
+
+  useEffect(() => {
+    shuffleImages();
   }, [allImages]);
 
   return (
@@ -50,6 +54,7 @@ function App() {
             key={crypto.randomUUID()}
             url={image.images?.original.url}
             alt={image.title}
+            shuffleImages={shuffleImages}
           />
         ))}
       </main>
