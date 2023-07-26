@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./styles/App.css";
 import Card from "./components/Card";
+import Scoreboard from "./components/Scoreboard";
 
 function App() {
   const ENDPOINT =
@@ -21,10 +22,6 @@ function App() {
       console.error("Error fetching emojis:", error);
     }
   };
-
-  useEffect(() => {
-    fetchEmojis();
-  }, []);
 
   const shuffleImages = () => {
     if (allImages.length > 0) {
@@ -74,10 +71,6 @@ function App() {
     return gridImages;
   };
 
-  useEffect(() => {
-    shuffleImages();
-  }, [allImages]);
-
   const addtoClicked = (imageObject) => {
     setClickedImages([...clickedImages, imageObject]);
   };
@@ -93,14 +86,22 @@ function App() {
     shuffleImages();
   };
 
-  useEffect(() => {
-    if (score > highScore) sethighScore(score);
-  }, [score, highScore]);
-
   const resetGame = () => {
     setScore(0);
     setClickedImages([]);
   };
+
+  useEffect(() => {
+    fetchEmojis();
+  }, []);
+
+  useEffect(() => {
+    shuffleImages();
+  }, [allImages]);
+
+  useEffect(() => {
+    if (score > highScore) sethighScore(score);
+  }, [score, highScore]);
 
   useEffect(() => {
     console.log("clicked images", clickedImages);
@@ -110,10 +111,7 @@ function App() {
     <>
       <header>
         <h1>Memory Game</h1>
-        <div className="scoreboard-container">
-          <h6>Score: {score}</h6>
-          <h6>High Score: {highScore}</h6>
-        </div>
+        <Scoreboard score={score} highScore={highScore} />
       </header>
       <main>
         <div className="card-container">
