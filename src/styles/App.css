@@ -76,3 +76,11 @@ main {
 .card-btn img {
   object-fit: cover;
 }
+
+.card-btn,
+.card-btn:focus,
+.card-btn:hover {
+  appearance: none;
+  outline: none;
+  border: none;
+}
