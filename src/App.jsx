@@ -103,16 +103,18 @@ function App() {
     if (score > highScore) sethighScore(score);
   }, [score, highScore]);
 
-  useEffect(() => {
-    console.log("clicked images", clickedImages);
-  }, [clickedImages]);
-
   return (
     <>
       <header>
         <h1>Memory Game</h1>
         <Scoreboard score={score} highScore={highScore} />
       </header>
+      <div className="instructions">
+        <h6>
+          Click on an emoji that you haven't clicked before. If you mess up,
+          your score goes back to 0!
+        </h6>
+      </div>
       <main>
         <div className="card-container">
           {selectedImages.map((image) => (
