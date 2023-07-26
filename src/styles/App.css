@@ -21,3 +21,8 @@ h6 {
   font-size: 2rem;
   margin: 1rem;
 }
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
