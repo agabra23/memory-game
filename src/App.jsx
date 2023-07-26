@@ -4,7 +4,7 @@ import Card from "./components/Card";
 
 function App() {
   const ENDPOINT =
-    "https://api.giphy.com/v2/emoji?api_key=jLvjxLBegqMPTsPVnfAGVjxVZVqnkQdU&limit=10&offset=0";
+    "https://api.giphy.com/v2/emoji?api_key=jLvjxLBegqMPTsPVnfAGVjxVZVqnkQdU&limit=30&offset=0";
 
   const [imageArray, setImageArray] = useState([]);
 
@@ -18,6 +18,10 @@ function App() {
 
     fetchEmojis();
   }, []);
+
+  const getFourImages = () => {
+    
+  }
 
   return (
     <>
