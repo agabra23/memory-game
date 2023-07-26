@@ -8,6 +8,7 @@ function App() {
 
   const [selectedImages, setSelectedImages] = useState([]);
   const [allImages, setAllImages] = useState([]);
+  const [clickedImages, setClickedImages] = useState([]);
 
   const fetchEmojis = async () => {
     try {
@@ -31,12 +32,19 @@ function App() {
 
   const getSelectedImages = () => {
     const gridImages = [];
-    for (let i = 0; i < 9; i++) {
+
+    const getUnusedImage = () => {
       let randomImage = allImages[Math.floor(Math.random() * allImages.length)];
 
       while (gridImages.some((image) => image.id === randomImage.id)) {
         randomImage = allImages[Math.floor(Math.random() * allImages.length)];
       }
+      return randomImage;
+    };
+
+    for (let i = 0; i < 9; i++) {
+      let randomImage = getUnusedImage();
+
       gridImages.push(randomImage);
     }
 
