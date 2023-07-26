@@ -33,7 +33,7 @@ function App() {
   const getSelectedImages = () => {
     const gridImages = [];
 
-    const getUnusedImage = () => {
+    const getAnyUnusedImage = () => {
       let randomImage = allImages[Math.floor(Math.random() * allImages.length)];
 
       while (gridImages.some((image) => image.id === randomImage.id)) {
@@ -42,10 +42,32 @@ function App() {
       return randomImage;
     };
 
-    for (let i = 0; i < 9; i++) {
-      let randomImage = getUnusedImage();
+    const getUnclickedImage = () => {
+      let randomImage = allImages[Math.floor(Math.random() * allImages.length)];
+
+      while (
+        gridImages.some((image) => image.id === randomImage.id) ||
+        clickedImages.some((image) => image.id === randomImage.id)
+      ) {
+        randomImage = allImages[Math.floor(Math.random() * allImages.length)];
+      }
+
+      return randomImage;
+    };
+
+    for (let i = 0; i < 8; i++) {
+      let randomImage = getAnyUnusedImage();
 
       gridImages.push(randomImage);
+    }
+
+    const randomIndex = Math.floor(Math.random() * 9);
+
+    if (randomIndex === 8) {
+      gridImages.push(getUnclickedImage());
+    } else {
+      // put unclicked img at random index
+      gridImages.splice(randomIndex, 0, getUnclickedImage());
     }
 
     return gridImages;
