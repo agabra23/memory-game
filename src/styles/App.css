@@ -73,10 +73,6 @@ main {
   align-items: center;
 }
 
-.card-btn img {
-  object-fit: cover;
-}
-
 .card-btn,
 .card-btn:focus,
 .card-btn:hover {
